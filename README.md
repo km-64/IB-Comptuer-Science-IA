@@ -43,11 +43,12 @@ background with a database called `RowingDB` with a collection called `TeamMembe
 }
 ```
 Here is a screenshot of where to place this in MongoDB:
-<img src="imgs/mongodb.png" alt="application screenshot">
+<img src="imgs/mongodb.png" alt="application screenshot" width=70%>
 
 ## Building and Running
 The VS2022 solution can be opened from the `src/RowingManager.sln` file, then the project can be built.
-The following libraries were used and can be installed using NuGet:
+Alternatively the zip folder containing the combiled binaries can be downloaded from the releases page
+of this repository. The following libraries were used and can be installed using NuGet:
 - [Caliburn.Micro](https://www.nuget.org/packages/Caliburn.Micro) - MVVM framework
 - [DocX](https://www.nuget.org/packages/DocX) - .docx document generator
 - [Extended.Wpf.Toolkit](https://www.nuget.org/packages/Extended.Wpf.Toolkit) - extra wpf widgets
