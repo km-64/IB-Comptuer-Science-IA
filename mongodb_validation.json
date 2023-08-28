@@ -1,33 +1,14 @@
 {
   $jsonSchema: {
-    required: [
-      '_id',
-      'FirstName',
-      'LastName',
-      'dob',
-      'Tests'
-    ],
+    required: ['_id', 'FirstName', 'LastName', 'dob', 'Tests'],
     properties: {
-      _id: {
-        bsonType: 'binData'
-      },
-      FirstName: {
-        bsonType: 'string'
-      },
-      LastName: {
-        bsonType: 'string'
-      },
-      dob: {
-        bsonType: 'date'
-      },
+      _id: { bsonType: 'binData' },
+      FirstName: { bsonType: 'string' },
+      LastName: { bsonType: 'string' },
+      dob: { bsonType: 'date' },
       Tests: {
-        bsonType: [
-          'array',
-          'null'
-        ],
-        required: [
-          'Date'
-        ],
+        bsonType: ['array', 'null'],
+        required: ['Date'],
         additionalProperties: true
       }
     },
