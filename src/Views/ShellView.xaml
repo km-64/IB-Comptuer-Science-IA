@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RowingManager.Views"
         xmlns:uc="clr-namespace:RowingManager.Views"
         mc:Ignorable="d"
-        Title="WTW Manager" Height="720" Width="1280" FontSize="14">
+        Title="Rowing Manager" Height="720" Width="1280" FontSize="14">
     <Grid>
         <TabControl>
             <TabItem Header="Individual Members">
