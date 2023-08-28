@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="RowingManager.Views.ManageTeamView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RowingManager.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             FontSize="14">
+    <Grid HorizontalAlignment="Center">
+        <StackPanel Orientation="Vertical" Width="200">
+
+            <TextBlock Text="Manage Team" FontWeight="Bold" FontSize="24" />
+            <TextBlock Margin="0 10 0 0" Text="Team Members" FontWeight="SemiBold" FontSize="16" />
+            <Button x:Name="AddPerson" Width="auto" Padding="5" Margin="0 5">Add Person</Button>
+            <Button x:Name="AddTest" Width="auto" Padding="5" Margin="0 5">Add Test</Button>
+            <Button x:Name="RemovePerson" Width="auto" Padding="5" Margin="0 5">Remove Person</Button>
+            
+            <TextBlock Margin="0 20 0 0" Text="Generate Documents" FontWeight="SemiBold" FontSize="16" />
+            <Button x:Name="GenerateIntervalList" Width="auto" Padding="5" Margin="0 5">Generate Interval List</Button>
+            
+            <TextBlock Margin="0 20 0 0" Text="Export" FontWeight="SemiBold" FontSize="16" />
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Export: " />
+                <ComboBox x:Name="People" DisplayMemberPath="FullName" Width="143" VerticalAlignment="Center" IsReadOnly="True" SelectedItem="{Binding Path=SelectedPerson, Mode=OneWayToSource}" />
+            </StackPanel>
+            <Button x:Name="ExportPersonTests" Width="auto" Padding="5" Margin="0 5">Export Person Tests</Button>
+            <Button x:Name="ExportEntireTeam" Width="auto" Padding="5" Margin="0 5">Export Entire Team</Button>
+            
+        </StackPanel>
+    </Grid>
+</UserControl>

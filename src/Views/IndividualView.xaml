@@ -1,0 +1,380 @@
+﻿<UserControl x:Class="RowingManager.Views.IndividualView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+             xmlns:local="clr-namespace:RowingManager.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ListBox x:Name="People" Grid.Column="0" SelectedIndex="0"
+                 DisplayMemberPath="FullName" SelectionMode="Single" IsTextSearchEnabled="True"
+                 SelectedItem="{Binding Path=SelectedPerson, Mode=OneWayToSource}" />
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="SelectedPerson_FullName" FontWeight="Bold" Grid.Row="0" FontSize="24" Margin="10" />
+                <TextBlock x:Name="SelectedPerson_BirthYear" VerticalAlignment="Center" Grid.Row="0" FontSize="18" Margin="10" />
+            </StackPanel>
+
+            <TabControl Grid.Row="1">
+
+                <TabItem Header="Ergometer Tests">
+                    <TabControl>
+                        <TabItem Header="2000m Test">
+                            <ScrollViewer>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="350" />
+                                        <RowDefinition Height="350" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock FontWeight="SemiBold" Grid.Row="0" FontSize="16" Margin="10 10 10 0" Text="2000m Test Scores"/>
+
+                                    <DataGrid x:Name="Tests2000m" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" Margin="10 0 10 10"
+                          SelectedItem="{Binding Path=Selected2000mDistanceTest, Mode=OneWayToSource}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=dd/MM/yyyy}" />
+                                            <DataGridTextColumn Header="Total Time" Binding="{Binding Path=TotalDuration}" />
+                                            <DataGridTextColumn Header="Average Watt" Binding="{Binding Path=AvgWatts}" />
+
+                                            <DataGridTextColumn Header="500m 1 Watts" Binding="{Binding Path=WattBlocks[0]}" />
+                                            <DataGridTextColumn Header="500m 2 Watts" Binding="{Binding Path=WattBlocks[1]}" />
+                                            <DataGridTextColumn Header="500m 3 Watts" Binding="{Binding Path=WattBlocks[2]}" />
+                                            <DataGridTextColumn Header="500m 4 Watts" Binding="{Binding Path=WattBlocks[3]}" />
+
+                                            <DataGridTextColumn Header="500m 1 Times" Binding="{Binding Path=TimeBlocks500m[0]}" />
+                                            <DataGridTextColumn Header="500m 2 Times" Binding="{Binding Path=TimeBlocks500m[1]}" />
+                                            <DataGridTextColumn Header="500m 3 Times" Binding="{Binding Path=TimeBlocks500m[2]}" />
+                                            <DataGridTextColumn Header="500m 4 Times" Binding="{Binding Path=TimeBlocks500m[3]}" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+
+                                        <Grid Grid.Column="0" Grid.Row="0" Margin="10">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" FontSize="18"  Text="Times During Test" FontWeight="SemiBold" HorizontalAlignment="Center" Width="auto"/>
+                                            <lvc:CartesianChart Grid.Row="1" Height="auto" Series="{Binding Series500mTimesSelected}" AnimationsSpeed="00:00:00.10"
+                                        XAxes="{Binding XAxesForSelected}" YAxes="{Binding YAxes500mTimes}" TooltipPosition="Hidden" />
+                                        </Grid>
+
+                                        <Grid Grid.Column="1" Grid.Row="0" Margin="10">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" FontSize="18"  Text="Watts During Test" FontWeight="SemiBold" HorizontalAlignment="Center" Width="auto"/>
+                                            <lvc:CartesianChart Grid.Row="1" Height="auto" Series="{Binding Series500mWattsSelected}" AnimationsSpeed="00:00:00.10"
+                                        XAxes="{Binding XAxesForSelected}" YAxes="{Binding YAxes500mWatts}" TooltipPosition="Hidden"/>
+                                        </Grid>
+
+
+                                    </Grid>
+
+                                    <Grid  Grid.Row="3" Margin="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" FontSize="18"  Text="Time Score Progress" FontWeight="SemiBold" HorizontalAlignment="Center" Width="auto"/>
+                                        <lvc:CartesianChart Grid.Row="1" Height="auto" Series="{Binding SeriesTimeProgress2000m}" AnimationsSpeed="00:00:00.10" XAxes="{Binding XAxesEmptyLabels}"
+                                                TooltipPosition="Hidden" YAxes="{Binding YAxes2000mTimesProgress}" />
+                                    </Grid>
+
+                                </Grid>
+                            </ScrollViewer>
+
+
+                        </TabItem>
+                        <TabItem Header="500m Test">
+                            <ScrollViewer>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="350" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock FontWeight="SemiBold" Grid.Row="0" FontSize="16" Margin="10 10 10 0" Text="500m Test Scores" />
+
+                                    <DataGrid x:Name="Tests500m" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" Margin="10 0 10 10"
+                          SelectedItem="{Binding Path=Selected500mDistanceTest, Mode=OneWayToSource}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=dd/MM/yyyy}" />
+                                            <DataGridTextColumn Header="Total Time" Binding="{Binding Path=TotalDuration}" />
+                                            <DataGridTextColumn Header="Average Watt" Binding="{Binding Path=AvgWatts}" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+
+                                    <Grid  Grid.Row="2" Margin="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" FontSize="18"  Text="Time Score Progress" FontWeight="SemiBold" HorizontalAlignment="Center" Width="auto"/>
+                                        <lvc:CartesianChart Grid.Row="1" Height="auto" Series="{Binding SeriesTimeProgress500m}" AnimationsSpeed="00:00:00.10" XAxes="{Binding XAxesEmptyLabels}"
+                                                TooltipPosition="Hidden" YAxes="{Binding YAxes500mTimesProgress}" />
+                                    </Grid>
+
+                                </Grid>
+                            </ScrollViewer>
+                        </TabItem>
+                        <TabItem Header="100m Test">
+                            <ScrollViewer>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="350" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock FontWeight="SemiBold" Grid.Row="0" FontSize="16" Margin="10 10 10 0" Text="100m Test Scores" />
+
+                                    <DataGrid x:Name="Tests100m" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" Margin="10 0 10 10"
+                          SelectedItem="{Binding Path=Selected100mDistanceTest, Mode=OneWayToSource}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=dd/MM/yyyy}" />
+                                            <DataGridTextColumn Header="Total Time" Binding="{Binding Path=TotalDuration}" />
+                                            <DataGridTextColumn Header="Average Watt" Binding="{Binding Path=AvgWatts}" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+
+                                    <Grid  Grid.Row="2" Margin="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" FontSize="18"  Text="Time Score Progress" FontWeight="SemiBold" HorizontalAlignment="Center" Width="auto"/>
+                                        <lvc:CartesianChart Grid.Row="1" Height="auto" Series="{Binding SeriesTimeProgress100m}" AnimationsSpeed="00:00:00.10" XAxes="{Binding XAxesEmptyLabels}"
+                                                    TooltipPosition="Hidden" YAxes="{Binding YAxes100mTimesProgress}" />
+                                    </Grid>
+
+                                </Grid>
+                            </ScrollViewer>
+                        </TabItem>
+                    </TabControl>
+                </TabItem>
+
+                <TabItem Header="Weight Tests">
+
+                    <TabControl>
+                        
+                        <TabItem Header="Endurance">
+                            <ScrollViewer>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <DataGrid Grid.Row="0" x:Name="TestsEnduranceWeight" AutoGenerateColumns="False" IsReadOnly="True">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=dd/MM/yyyy}" />
+                                            <DataGridTextColumn Header="Kilograms" Binding="{Binding Path=Kilograms}" />
+                                            <DataGridTextColumn Header="Duration" Binding="{Binding Path=Duration}" />
+                                            <DataGridTextColumn Header="Lift Distance (cm)" Binding="{Binding Path=LiftDistance}" />
+                                            <DataGridTextColumn Header="Repetitions" Binding="{Binding Path=Repetitions}" />
+                                            <DataGridTextColumn Header="Total Joules" Binding="{Binding Path=Joules}" />
+                                            <DataGridTextColumn Header="Total Watts" Binding="{Binding Path=Watts}" />
+                                            <!--<DataGridTextColumn Header="Change" />-->
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+
+                                    <Grid Margin="10" Grid.Row="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" FontSize="18"  Text="Endurance Wattage Progress" FontWeight="SemiBold" HorizontalAlignment="Center" Width="auto"/>
+                                        <lvc:CartesianChart Grid.Row="1" Height="300" Series="{Binding SeriesEnduranceProgress}" AnimationsSpeed="00:00:00.10" XAxes="{Binding XAxesEmptyLabels}"
+                                                            YAxes="{Binding YAxesWatts}" TooltipPosition="Hidden" />
+                                    </Grid>
+
+                                </Grid>
+                            </ScrollViewer>
+                            
+                        </TabItem>
+
+                        <TabItem Header="Bench Press Max">
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0"  Orientation="Horizontal">
+                                    <DataGrid x:Name="TestsMaxBenchPress" AutoGenerateColumns="False" IsReadOnly="True">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=dd/MM/yyyy}" />
+                                            <DataGridTextColumn Header="Max Weight" Binding="{Binding Path=Kilograms}" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    <!--<DataGrid>
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Change" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>-->
+                                </StackPanel>
+
+                                <Grid Margin="10" Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" FontSize="18"  Text="Max Bench Press Weight Progress" FontWeight="SemiBold" HorizontalAlignment="Center" Width="auto"/>
+                                    <lvc:CartesianChart Grid.Row="1" Height="300" Series="{Binding SeriesBenchPressProgress }" AnimationsSpeed="00:00:00.10" XAxes="{Binding XAxesEmptyLabels}"
+                                                        YAxes="{Binding YAxesWeight}" TooltipPosition="Hidden" />
+                                </Grid>
+
+                            </Grid>
+                            
+                        </TabItem>
+                        
+                        <TabItem Header="Bench Pull Max">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <DataGrid Grid.Column="0" x:Name="TestsMaxBenchPull" AutoGenerateColumns="False" IsReadOnly="True">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=dd/MM/yy}" />
+                                        <DataGridTextColumn Header="Max Weight" Binding="{Binding Path=Kilograms}" />
+                                        <!--<DataGridTextColumn Header="Change" />-->
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                                <Grid Margin="10" Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" FontSize="18"  Text="Max Bench Pull Weight Progress" FontWeight="SemiBold" HorizontalAlignment="Center" Width="auto"/>
+                                    <lvc:CartesianChart Grid.Row="1" Height="300" Series="{Binding SeriesBenchPullProgress }" AnimationsSpeed="00:00:00.10" XAxes="{Binding XAxesEmptyLabels}"
+                                                        YAxes="{Binding YAxesWeight}" TooltipPosition="Hidden" />
+                                </Grid>
+
+                            </Grid>
+                        </TabItem>
+                        
+                        <TabItem Header="Leg Press Max">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <DataGrid Grid.Column="0" x:Name="TestsMaxLegPress" AutoGenerateColumns="False" IsReadOnly="True">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=dd/MM/yy}" />
+                                        <DataGridTextColumn Header="Max Weight" Binding="{Binding Path=Kilograms}" />
+                                        <!--<DataGridTextColumn Header="Change" />-->
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                                <Grid Margin="10" Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" FontSize="18"  Text="Max Leg Press Weight Progress" FontWeight="SemiBold" HorizontalAlignment="Center" Width="auto"/>
+                                    <lvc:CartesianChart Grid.Row="1" Height="300" Series="{Binding SeriesLegPressProgress }" AnimationsSpeed="00:00:00.10" XAxes="{Binding XAxesEmptyLabels}"
+                                                        YAxes="{Binding YAxesWeight}" TooltipPosition="Hidden" />
+                                </Grid>
+
+                            </Grid>
+                        </TabItem>
+                        
+                        <TabItem Header="Deadlift Max">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <DataGrid Grid.Column="0" x:Name="TestsMaxDeadlift" AutoGenerateColumns="False" IsReadOnly="True">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=dd/MM/yy}" />
+                                        <DataGridTextColumn Header="Max Weight" Binding="{Binding Path=Kilograms}" />
+                                        <!--<DataGridTextColumn Header="Change" />-->
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                                <Grid Margin="10" Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" FontSize="18"  Text="Max Deadlift Weight Progress" FontWeight="SemiBold" HorizontalAlignment="Center" Width="auto"/>
+                                    <lvc:CartesianChart Grid.Row="1" Height="300" Series="{Binding SeriesDeadliftProgress }" AnimationsSpeed="00:00:00.10" XAxes="{Binding XAxesEmptyLabels}"
+                                                        YAxes="{Binding YAxesWeight}" TooltipPosition="Hidden" />
+                                </Grid>
+
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Header="Squat Max">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <DataGrid Grid.Column="0" x:Name="TestsMaxSquat" AutoGenerateColumns="False" IsReadOnly="True">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=dd/MM/yy}" />
+                                        <DataGridTextColumn Header="Max Weight" Binding="{Binding Path=Kilograms}" />
+                                        <!--<DataGridTextColumn Header="Change" />-->
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                                <Grid Margin="10" Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" FontSize="18"  Text="Max Squat Weight Progress" FontWeight="SemiBold" HorizontalAlignment="Center" Width="auto"/>
+                                    <lvc:CartesianChart Grid.Row="1" Height="300" Series="{Binding SeriesSquatProgress }" AnimationsSpeed="00:00:00.10" XAxes="{Binding XAxesEmptyLabels}"
+                                                        YAxes="{Binding YAxesWeight}" TooltipPosition="Hidden" />
+                                </Grid>
+
+                            </Grid>
+                        </TabItem>
+                        
+                        
+                    </TabControl>
+                    
+                </TabItem>
+                
+            </TabControl>
+            
+        </Grid>
+
+    </Grid>
+</UserControl>

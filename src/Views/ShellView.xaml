@@ -1,0 +1,24 @@
+﻿<Window x:Class="RowingManager.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RowingManager.Views"
+        xmlns:uc="clr-namespace:RowingManager.Views"
+        mc:Ignorable="d"
+        Title="WTW Manager" Height="720" Width="1280" FontSize="14">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Individual Members">
+                <Grid Background="#FFE5E5E5">
+                    <ContentControl x:Name="IndividualViewModel" />
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Manage Members">
+                <ContentControl x:Name="ManageTeamViewModel" />
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
